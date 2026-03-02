@@ -1,0 +1,60 @@
+body{
+    font-family: "Microsoft YaHei", sans-serif;
+    background: #f4f6f9;
+    text-align:center;
+    margin:0;
+}
+
+.header{
+    background:#2c3e50;
+    color:white;
+    padding:15px;
+}
+
+button{
+    padding:8px 16px;
+    margin:5px;
+    border:none;
+    background:#3498db;
+    color:white;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#2980b9;
+}
+
+.hidden{
+    display:none;
+}
+
+#studentPanel, #teacherPanel{
+    padding:20px;
+}
+
+#achievement{
+    position:fixed;
+    top:40%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    background:gold;
+    padding:30px;
+    font-size:24px;
+    border-radius:10px;
+    animation:pop 1s ease;
+}
+
+@keyframes pop{
+    0%{transform:scale(0)}
+    100%{transform:scale(1)}
+}
+
+ul{
+    list-style:none;
+    padding:0;
+}
+
+.video{
+    margin-top:30px;
+}
