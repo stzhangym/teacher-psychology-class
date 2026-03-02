@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>教师心理互动课堂</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>教师心理互动课堂</h1>
+    <button onclick="showTeacher()">教师端</button>
+    <button onclick="showStudent()">学生端</button>
+</div>
+
+<!-- 登录区 -->
+<div id="login">
+    <input id="studentName" placeholder="请输入姓名">
+    <button onclick="joinClass()">加入课堂</button>
+</div>
+
+<!-- 学生端 -->
+<div id="studentPanel" class="hidden">
+    <h2 id="stageTitle"></h2>
+    <div id="questionArea"></div>
+    <div id="options"></div>
+    <p>当前积分：<span id="score">0</span></p>
+</div>
+
+<!-- 教师端 -->
+<div id="teacherPanel" class="hidden">
+    <h2>课堂数据中心</h2>
+    <canvas id="chart"></canvas>
+    <h3>排行榜</h3>
+    <ul id="ranking"></ul>
+    <button onclick="exportExcel()">导出Excel报告</button>
+</div>
+
+<!-- 成就动画 -->
+<div id="achievement" class="hidden">🎖 成就达成！</div>
+
+<!-- B站视频 -->
+<div class="video">
+<iframe src="https://player.bilibili.com/player.html?bvid=BV1xx411c7mD"
+width="100%" height="400" frameborder="0"></iframe>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
