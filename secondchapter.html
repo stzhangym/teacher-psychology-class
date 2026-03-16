@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第二章：目标导向的教学设计 - 课件</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700&display=swap');
+        
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #3b82f6;
+            --accent: #f59e0b;
+            --bg: #f8fafc;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #000;
+            margin: 0;
+            overflow: hidden;
+            color: #1e293b;
+        }
+
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            background: var(--bg);
+            display: none;
+            padding: 4rem;
+            box-sizing: border-box;
+            position: relative;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .title-slide {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+            color: white;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .header {
+            border-bottom: 2px solid var(--primary);
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .content {
+            flex-grow: 1;
+            font-size: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .footer {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        .highlight-box {
+            background: #dbeafe;
+            border-left: 6px solid var(--primary);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 0.5rem;
+        }
+
+        .interactive-btn {
+            background: var(--accent);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .interactive-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .nav-btn {
+            background: rgba(30, 58, 138, 0.8);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 5px;
+            background: var(--accent);
+            z-index: 200;
+            transition: width 0.3s;
+        }
+
+        .timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            font-weight: bold;
+        }
+
+        .concept-map {
+            display: grid;
+            grid-template-cols: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 2rem;
+        }
+
+        .map-item {
+            background: white;
+            padding: 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        ul li {
+            margin-bottom: 0.8rem;
+            list-style: none;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        ul li::before {
+            content: '•';
+            color: var(--secondary);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="progress-bar" id="progressBar"></div>
+    <div class="timer" id="timer">90:00</div>
+
+    <!-- Slide 1: Title -->
+    <div class="slide active title-slide">
+        <h1 class="text-6xl font-black mb-6">第二章：目标导向的教学设计</h1>
+        <p class="text-2xl opacity-80 mb-12">——从“教什么”到“学到什么”的科学转化</p>
+        <div class="text-lg">
+            《学与教的心理学》第六版 · 皮连生 主编<br>
+            主讲人：教育心理学教研室
+        </div>
+    </div>
+
+    <!-- Slide 2: Learning Objectives -->
+    <div class="slide">
+        <div class="header">
+            <h2 class="text-3xl font-bold">本章学习目标</h2>
+        </div>
+        <div class="content">
+            <div class="grid grid-cols-2 gap-8 mt-10">
+                <div class="highlight-box">
+                    <h3 class="font-bold text-blue-800 mb-2">理论认知</h3>
+                    <ul class="text-xl">
+                        <li>理解教学设计的基本概念与流程</li>
+                        <li>掌握加涅的五类学习结果分类</li>
+                        <li>区分行为目标、内部过程目标</li>
+                    </ul>
+                </div>
+                <div class="highlight-box">
+                    <h3 class="font-bold text-orange-800 mb-2">实践能力</h3>
+                    <ul class="text-xl">
+                        <li>能使用ABCD模式编写教学目标</li>
+                        <li>掌握三类知识的任务分析方法</li>
+                        <li>能根据目标设计课堂评定题目</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer">Slide 2 / 32</div>
+    </div>
+
+    <!-- Slide 3: Introduction Case -->
+    <div class="slide">
+        <div class="header">
+            <h2 class="text-3xl font-bold">【导入案例】没有航向的航船</h2>
+        </div>
+        <div class="content">
+            <p class="mb-6 italic text-slate-600">“如果你不知道你要去哪儿，那么无论你走哪条路都无所谓。” —— 塞内卡</p>
+            <div class="p-6 bg-white rounded-xl shadow-md">
+                <h4 class="font-bold text-blue-600">课堂乱象：</h4>
+                <p>某新手教师备课笔记：“让学生了解本课背景，感受作者情感，提高写作水平。”</p>
+                <p class="mt-4 text-red-600 font-bold">问题点：</p>
+                <ul class="text-lg">
+                    <li>“了解”到什么程度？如何衡量？</li>
+                    <li>“感受”作者什么情感？如何观测？</li>
+                    <li>这节课结束后，学生到底学会了哪项具体技能？</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer">Slide 3 / 32</div>
+    </div>
+
+    <!-- Slide 4: Definition -->
+    <div class="slide">
+        <div class="header">
+            <h2 class="text-3xl font-bold">一、教学设计的基本内涵</h2>
+        </div>
+        <div class="content">
+            <div class="flex items-center gap-8">
+                <div class="w-1/2">
+                    <p class="font-bold text-2xl text-blue-800">教学设计（Instructional Design）</p>
+                    <p class="mt-4">运用系统方法，将学习理论与教学理论的原理转换成对教学资料、教学活动、信息资源和评价的具体计划的过程。</p>
+                </div>
+                <div class="w-1/2 bg-blue-50 p-6 rounded-lg">
+                    <h4 class="font-bold border-b mb-4">核心三问：</h4>
+                    <ol class="list-decimal pl-6">
+                        <li>我们要去哪里？（教学目标）</li>
+                        <li>我们如何去那里？（教学策略）</li>
+                        <li>我们怎么知道到了那里？（评价/测验）</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div class="footer">Slide 4 / 32</div>
+    </div>
+
+    <!-- Slide 5: Scientific Model -->
+    <div class="slide">
+        <div class="header">
+            <h2 class="text-3xl font-bold">目标导向的教学模型</h2>
+        </div>
+        <div class="content flex flex-col items-center">
+            <p class="mb-8">皮连生教授强调：目标是教学的灵魂。整个系统是闭环的。</p>
+            <div class="concept-map w-full max-w-4xl">
+                <div class="map-item bg-blue-600 text-white font-bold">设置目标<br><span class="text-xs font-normal">起点与终点</span></div>
+                <div class="map-item bg-blue-100">任务分析<br><span class="text-xs">拆解先决条件</span></div>
+                <div class="map-item bg-blue-100">教学过程<br><span class="text-xs">呈现与交互</span></div>
+                <div class="map-item col-span-3 bg-orange-100 border-dashed border-2 border-orange-400">评定与反馈<br><span class="text-xs">测量目标达成度</span></div>
+            </div>
+        </div>
+        <div class="footer">Slide 5 / 32</div>
+    </div>
+
+    <!-- Slide 6: Gagne's Classification 1 -->
+    <div class="slide">
+        <div class="header">
+            <h2 class="text-3xl font-bold">二、教学目标的分类（核心知识点）</h2>
+        </div>
+        <div class="content">
+            <h3 class="text-2xl font-bold text-blue-700 mb-4">加涅（R.Gagné）的学习结果五分类</h3>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="p-4 border rounded bg-white hover:shadow-lg transition">
+                    <span class="font-bold text-indigo-600">1. 言语信息：</span>
+                    “知道什么”。如：说出唐宋八大家的名字。
+                </div>
+                <div class="p-4 border rounded bg-white hover:shadow-lg transition">
+                    <span class="font-bold text-indigo-600">2. 智慧技能：</span>
+                    “怎么做”。核心是运用符号。区分、定义、原理、问题解决。
+                </div>
+                <div class="p-4 border rounded bg-white hover:shadow-lg transition">
+                    <span class="font-bold text-indigo-600">3. 认知策略：</span>
+                    支配学习者自身学习行为。如：运用复述策略记忆单词。
+                </div>
+                <div class="p-4 border rounded bg-white hover:shadow-lg transition">
+                    <span class="font-bold text-indigo-600">4. 动作技能：</span>
+                    平稳、连贯、精确。如：熟练使用显微镜。
+                </div>
+            </div>
+            <div class="mt-4 p-4 border rounded bg-white hover:shadow-lg transition">
+                <span class="font-bold text-indigo-600">5. 态度：</span>
+                习得的状态，影响个体的选择。如：热爱集体、遵守交通规则。
+            </div>
+        </div>
+        <div class="footer">Slide 6 / 32</div>
+    </div>
+
+    <!-- Slide 7: Intellectual Skills Detail -->
+    <div class="slide">
+        <div class="header">
+            <h2 class="text-3xl font-bold">智慧技能的内部层级</h2>
+        </div>
+        <div class="content">
+            <p class="mb-4">加涅认为智慧技能是由易到难发展的：</p>
+            <div class="space-y-2">
+                <div class="bg-gray-800 text-white p-2 text-center w-1/4 mx-auto rounded">高级规则（问题解决）</div>
+                <div class="bg-gray-600 text-white p-2 text-center w-1/3 mx-auto rounded">简单规则（原理）</div>
+                <div class="bg-gray-400 text-white p-2 text-center w-1/2 mx-auto rounded">概念（定义性概念）</div>
+                <div class="bg-gray-300 p-2 text-center w-2/3 mx-auto rounded">辨别（最基础）</div>
+            </div>
+            <div class="mt-8 bg-yellow-50 p-4 border-l-4 border-yellow-400">
+                <strong>教师启发：</strong>如果学生不懂得基本概念（如：半径），他绝不可能掌握规则（如：圆面积公式）。
+            </div>
+        </div>
+        <div class="footer">Slide 7 / 32</div>
+    </div>
+
+    <!-- Slide 8: Interactive 1 -->
+    <div class="slide">
+        <div class="header">
+            <h2 class="text-3xl font-bold">【分类实验室】连连看互动</h2>
+        </div>
+        <div class="content">
+            <p class="text-center mb-8">请判断下列描述属于加涅五类中的哪一类？</p>
+            <div class="grid grid-cols-2 gap-10">
+                <div class="space-y-4">
+                    <div class="p-4 bg-white border rounded shadow">A. 能准确背诵勾股定理</div>
+                    <div class="p-4 bg-white border rounded shadow">B. 能利用勾股定理计算斜边长</div>
+                    <div class="p-4 bg-white border rounded shadow">C. 能有意识地采用思维导图备考</div>
+                    <div class="p-4 bg-white border rounded shadow">D. 能自愿参加社区志愿者活动</div>
+                </div>
+                <div class="flex flex-col justify-center">
+                    <button class="interactive-btn mb-4" onclick="alert('A: 言语信息\nB: 智慧技能\nC: 认知策略\nD: 态度')">点击查看答案解析</button>
+                    <p class="text-sm text-slate-500">注意：智慧技能强调“运用规律”，言语信息强调“回忆叙述”。</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer">Slide 8 / 32</div>
+    </div>
+
+    <!-- Slide 9: Three Dimensions of Targets -->
+    <div class="slide">
+        <div class="header">
+            <h2 class="text-3xl font-bold">我国新课标：三维目标</h2>
+        </div>
+        <div class="content">
+            <div class="grid grid-cols-3 gap-6 mt-10">
+                <div class="p-6 bg-red-50 border-t-4 border-red-500 text-center">
+                    <h4 class="font-bold text-xl mb-4">知识与技能</h4>
+                    <p class="text-base">对应皮连生理论中的陈述性知识和程序性知识。</p>
+                </div>
+                <div class="p-6 bg-green-50 border-t-4 border-green-500 text-center">
+                    <h4 class="font-bold text-xl mb-4">过程与方法</h4>
+                    <p class="text-base">侧重认知策略、学习习惯和探究过程。</p>
+                </div>
+                <div class="p-6 bg-blue-50 border-t-4 border-blue-500 text-center">
+                    <h4 class="font-bold text-xl mb-4">情感态度价值观</h4>
+                    <p class="text-base">对应态度领域的学习结果。</p>
+                </div>
+            </div>
+            <div class="highlight-box mt-10">
+                皮连生教授点评：三维目标不能是三个独立的清单，应融合在具体的学习任务中。
+            </div>
+        </div>
+        <div class="footer">Slide 9 / 32</div>
+    </div>
+
+    <!-- Slide 10: ABCD Method -->
+    <div class="slide">
+        <div class="header">
+            <h2 class="text-3xl font-bold">三、教学目标的陈述技术（重点）</h2>
+        </div>
+        <div class="content">
+            <p class="mb-6 font-bold text-blue-800">马杰（Mager）的行为目标三要素 + ABCD模式</p>
+            <div class="grid grid-cols-4 gap-4">
+                <div class="p-4 bg-blue-600 text-white rounded text-center">
+                    <div class="text-4xl font-bold">A</div>
+                    <div>Audience<br>对象</div>
+                </div>
+                <div class="p-4 bg-blue-500 text-white rounded text-center">
+                    <div class="text-4xl font-bold">B</div>
+                    <div>Behavior<br>行为</div>
+                </div>
+                <div class="p-4 bg-blue-400 text-white rounded text-center">
+                    <div class="text-4xl font-bold">C</div>
+                    <div>Condition<br>条件</div>
+                </div>
+                <div class="p-4 bg-blue-300 text-white rounded text-center">
+                    <div class="text-4xl font-bold">D</div>
+                    <div>Degree<br>程度</div>
+                </div>
+            </div>
+            <div class="mt-8 text-xl">
+                例：<span class="text-blue-600">在提供中国地图的前提下（C）</span>，<span class="text-red-600">初二学生（A）</span>能<span class="text-green-600">准确指认（B）</span><span class="text-orange-600">至少30个省会（D）</span>。
+            </div>
+        </div>
+        <div class="footer">Slide 10 / 32</div>
+    </div>
+
+    <!-- Slide 11: Task Analysis Introduction -->
+    <div class="slide">
+        <div class="header">
+            <h2 class="text-3xl font-bold">四、教学中的任务分析（难点）</h2>
+        </div>
+        <div class="content">
+            <p class="mb-4 text-xl">任务分析是教学设计的“黑匣子”，它揭示了从起点到终点的知识链条。</p>
+            <div class="highlight-box">
+                什么是任务分析？<br>
+                <span class="text-lg">它是指在教学活动开始前，为了达到教学目标，教师对其所需的先决知识、技能进行详细拆解的过程。</span>
+            </div>
+            <div class="grid grid-cols-2 gap-8 mt-4">
+                <div class="p-4 border">
+                    <h5 class="font-bold border-b mb-2">主要内容：</h5>
+                    <ol class="list-decimal pl-6">
+                        <li>确定目标的学习结果类型</li>
+                        <li>拆解必要的使能目标（子技能）</li>
+                        <li>确定支持性条件（动机、策略）</li>
+                    </ol>
+                </div>
+                <div class="p-4 border">
+                    <h5 class="font-bold border-b mb-2">其意义：</h5>
+                    <ul class="list-disc pl-6">
+                        <li>防止学生因基础不牢而“掉队”</li>
+                        <li>为评价提供细致的诊断点</li>
+                        <li>确定教学逻辑顺序</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer">Slide 11 / 32</div>
+    </div>
+
+    <!-- Slide 12: Knowledge Types -->
+    <div class="slide">
+        <div class="header">
+            <h2 class="text-3xl font-bold">不同类型知识的任务分析</h2>
+        </div>
+        <div class="content">
+            <table class="w-full text-lg border-collapse border border-slate-300">
+                <thead>
+                    <tr class="bg-blue-800 text-white">
+                        <th class="border p-4 w-1/4">知识类型</th>
+                        <th class="border p-4 w-1/4">典型任务</th>
+                        <th class="border p-4 w-1/2">分析重点</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="border p-4 font-bold">陈述性知识</td>
+                        <td class="border p-4">回忆、陈述</td>
+                        <td class="border p-4">原有知识的连接点、提取线索、组织策略。</td>
+                    </tr>
+                    <tr class="bg-slate-50">
+                        <td class="border p-4 font-bold">智慧技能</td>
+                        <td class="border p-4">解题、应用</td>
+                        <td class="border p-4">阶层性分析：掌握本规则前必须掌握哪些子规则或概念。</td>
+                    </tr>
+                    <tr>
+                        <td class="border p-4 font-bold">认知策略</td>
+                        <td class="border p-4">反思、调节</td>
+                        <td class="border p-4">元认知意识、具体的策略步骤、迁移情境。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="footer">Slide 12 / 32</div>
+    </div>
+
+    <!-- Slide 13: Group Discussion 1 -->
+    <div class="slide">
+        <div class="header">
+            <h2 class="text-3xl font-bold">【小组研讨】5分钟限时讨论</h2>
+        </div>
+        <div class="content flex flex-col items-center">
+            <div class="w-2/3 p-8 bg-blue-50 border-2 border-blue-400 rounded-3xl">
+                <h4 class="text-2xl font-bold text-blue-900 mb-6">研讨话题：</h4>
+                <p class="text-xl leading-relaxed text-blue-800">
+                    “在小学数学‘两位数除以一位数’的教学中，如果学生不能顺利完成计算，通过‘任务分析’的视角，你认为可能有哪些知识断层（使能目标未达成）？”
+                </p>
+                <div class="mt-8 flex justify-center">
+                    <button class="interactive-btn px-10 py-4" onclick="startDiscussion()">开启讨论计时</button>
+                </div>
+            </div>
+            <div id="discussionTimer" class="mt-6 text-4xl font-mono hidden">05:00</div>
+        </div>
+        <div class="footer">Slide 13 / 32</div>
+    </div>
+
+    <!-- Slide 14: Objective Evaluation -->
+    <div class="slide">
+        <div class="header">
+            <h2 class="text-3xl font-bold">五、目标与评定的匹配</h2>
+        </div>
+        <div class="content">
+            <p class="mb-6">教、学、评一致性原则：</p>
+            <div class="flex gap-4">
+                <div class="flex-1 p-4 bg-white border-2 border-blue-500 rounded text-center">
+                    <h5 class="font-bold">教学目标</h5>
+                    <p class="text-sm">想要学生学到什么？</p>
+                </div>
+                <div class="flex items-center text-2xl">↔</div>
+                <div class="flex-1 p-4 bg-white border-2 border-green-500 rounded text-center">
+                    <h5 class="font-bold">教学活动</h5>
+                    <p class="text-sm">做了什么练习？</p>
+                </div>
+                <div class="flex items-center text-2xl">↔</div>
+                <div class="flex-1 p-4 bg-white border-2 border-red-500 rounded text-center">
+                    <h5 class="font-bold">测评题目</h5>
+                    <p class="text-sm">测了什么能力？</p>
+                </div>
+            </div>
+            <div class="mt-10 p-4 bg-yellow-100 rounded">
+                <strong>反面教材：</strong>目标是“应用牛顿定律解决实际问题”，考试却是“默写牛顿第二定律公式”。<br>
+                <span class="text-red-600 font-bold">评价失效：用陈述性知识的题目去测智慧技能。</span>
+            </div>
+        </div>
+        <div class="footer">Slide 14 / 32</div>
+    </div>
+
+    <!-- Slide 15: Target Revision -->
+    <div class="slide">
+        <div class="header">
+            <h2 class="text-3xl font-bold">目标改错：找茬游戏</h2>
+        </div>
+        <div class="content">
+            <p class="mb-4">指出下列教学目标表述的不规范之处：</p>
+            <div class="space-y-4">
+                <div class="p-4 bg-white border rounded">
+                    1. <strong>“通过本课教学，使学生掌握鲁迅的生平。”</strong>
+                    <button class="text-blue-500 text-sm ml-4" onclick="alert('错误点：行为主体是教师（使学生...），应改为学生。且掌握程度不明确。')">查看诊断</button>
+                </div>
+                <div class="p-4 bg-white border rounded">
+                    2. <strong>“激发学生对祖国壮丽山河的热爱之情。”</strong>
+                    <button class="text-blue-500 text-sm ml-4" onclick="alert('错误点：描述心理过程，不可观测。应改为通过某种选择行为来体现这种态度。')">查看诊断</button>
+                </div>
+                <div class="p-4 bg-white border rounded">
+                    3. <strong>“初一学生能完全学好一元一次方程。”</strong>
+                    <button class="text-blue-500 text-sm ml-4" onclick="alert('错误点：学好是一个模糊概念，缺乏具体的判定程度（D）。')">查看诊断</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer">Slide 15 / 32</div>
+    </div>
+
+    <!-- Slide 16: Course Summary -->
+    <div class="slide">
+        <div class="header">
+            <h2 class="text-3xl font-bold">本章小结：一张路线图</h2>
+        </div>
+        <div class="content flex justify-center">
+            <div class="w-4/5">
+                <ul class="text-xl font-bold space-y-4">
+                    <li class="p-4 bg-blue-50 rounded">分类：明白你教的是什么类型的知识（加涅五类）。</li>
+                    <li class="p-4 bg-blue-100 rounded">陈述：用可测、可见的行为词描述目标（ABCD法）。</li>
+                    <li class="p-4 bg-blue-200 rounded">分析：理顺学生到达终点前必须经历的知识节点（任务分析）。</li>
+                    <li class="p-4 bg-blue-300 rounded">一致性：确保考试题就是目标的“影子”。</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer">Slide 16 / 32</div>
+    </div>
+
+    <!-- Slide 17: Q&A -->
+    <div class="slide title-slide">
+        <h1 class="text-6xl font-black mb-8">Q & A</h1>
+        <p class="text-2xl">感谢聆听，欢迎提问</p>
+        <div class="mt-20">
+            下节预告：第三章 陈述性知识的学习
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+        <button class="nav-btn" onclick="prevSlide()"> <i class="fas fa-chevron-left"></i> </button>
+        <button class="nav-btn" onclick="nextSlide()"> <i class="fas fa-chevron-right"></i> </button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const progressBar = document.getElementById('progressBar');
+        const timerDisplay = document.getElementById('timer');
+        let totalTime = 90 * 60;
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
+            });
+            const progress = ((currentSlide + 1) / slides.length) * 100;
+            progressBar.style.width = progress + '%';
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        // Timer
+        setInterval(() => {
+            if(totalTime > 0) {
+                totalTime--;
+                const mins = Math.floor(totalTime / 60);
+                const secs = totalTime % 60;
+                timerDisplay.innerText = `${mins}:${secs < 10 ? '0'+secs : secs}`;
+            }
+        }, 1000);
+
+        // Discussion Timer
+        function startDiscussion() {
+            const display = document.getElementById('discussionTimer');
+            display.classList.remove('hidden');
+            let dTime = 5 * 60;
+            const dInterval = setInterval(() => {
+                dTime--;
+                const mins = Math.floor(dTime / 60);
+                const secs = dTime % 60;
+                display.innerText = `0${mins}:${secs < 10 ? '0'+secs : secs}`;
+                if(dTime <= 0) {
+                    clearInterval(dInterval);
+                    alert('讨论结束，请各组准备分享！');
+                }
+            }, 1000);
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+    </script>
+</body>
+</html>
